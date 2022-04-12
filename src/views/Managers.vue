@@ -3,17 +3,20 @@
     <h1>This is yours Bank Managers</h1>
     <input @input="filter = $event.target.value" />
     <div class="managers">
-        <div
+      <div
         class="manager-card"
         v-for="manager in filterManager"
         :key="manager.id"
-        >
+      >
         <p v-if="!manager.edit">Name: {{ manager.name }}</p>
-        <input v-else v-model="manager.name"> 
+        <div v-else class="edit">
+          <input v-model="manager.name" />
+          <button @click.prevent="save">Save</button>
+        </div>
         <p>Bank: {{ manager.bank }}</p>
         <button @click.prevent="remove(manager.id)">Delete</button>
         <button @click.prevent="editManager(manager)">Edit</button>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,16 +49,14 @@ export default {
       this.$store.commit("GET_MANAGERS", loadManager);
       this.managers = this.$store.state.manager;
     },
-    editManager(manager){
-        return manager.edit = true
-
-    }
+    editManager(manager) {
+      manager.edit = true;
+    },
   },
   computed: {
-    filterManager() {
-      return this.managers.filter((manager) =>
-        manager.name.toLowerCase().includes(this.filter.toLowerCase())
-      );
+    filterManager(filter) {
+      this.$store.commit("FILTER", filter.filter);
+      return this.$store.getters.filterManager;
     },
   },
 };
@@ -63,21 +64,37 @@ export default {
 
 
 <style scoped>
-.container{
-    display: flex;
-    flex-direction: column;
-    margin: 10px auto;
-    align-items: center;
+input {
+  margin: 10px 10px;
 }
-.managers{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+p {
+  margin: 10px 10px;
+  text-align: center;
+}
+button {
+  margin: 5px 5px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+  align-items: center;
+}
+.managers {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .manager-card {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
   margin: 10px 10px;
-  border: 1px solid;
+
+  border: 1px solid plum;
+  box-shadow: 5px 2px 5px 2px rgba(36, 2, 36, 0.432);
+  border-radius: 15px;
+}
+.edit {
+  margin: 5px 10px;
 }
 </style>

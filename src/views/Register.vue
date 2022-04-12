@@ -41,12 +41,13 @@ export default {
 h1{
     text-align: center;
 }
-.container{
+.container {
   display: flex;
   width: 400px;
   margin: 10px auto;
-  border: 1px solid plum
-  
+  border: 1px solid plum;
+  box-shadow: 12px 5px 10px 5px rgba(36, 2, 36, 0.432);
+  border-radius: 15px;
 }
 form {
   display: flex;
@@ -96,5 +97,7 @@ button {
   border-radius: 10px;
   margin-left: 31px;
   color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
 }
 </style>

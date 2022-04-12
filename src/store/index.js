@@ -1,17 +1,19 @@
 import { createStore } from 'vuex'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import router from '../router'
-import { collection, doc, getDocs } from "firebase/firestore";
-import { db } from "../firebase/firebase"
 
 
 
 export default createStore({
   state: {
     user: {},
-    manager:[],
+    manager: [],
+    filter: ''
   },
   getters: {
+    filterManager(state) {
+      return state.manager.filter((manager) => manager.name.toLowerCase().includes(state.filter.toLowerCase()))
+    }
   },
   mutations: {
     NEW_USER_REGISTER(state, user) {
@@ -32,13 +34,17 @@ export default createStore({
         })
     },
     GET_MANAGERS(state, manager) {
-          manager.map( item => item)
-          state.manager = manager
-      }
-    
+      manager.map(item => item)
+      state.manager = manager
+    },
+    FILTER(state, filter) {
+      state.filter = filter
+    }
+
   },
   actions: {
-    
+
+
   },
   modules: {
   }
