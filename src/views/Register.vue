@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-      
     <p v-show="msgErro" style="color: red">{{ msgErro }}</p>
     <form @submit.prevent="register">
         <h1>Register</h1>
