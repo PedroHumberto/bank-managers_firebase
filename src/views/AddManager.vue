@@ -1,4 +1,5 @@
 <template>
+  <p v-show="msgError" style="color: red">{{ msgError }}</p>
   <ManagerForm :manager="manager" @submit.prevent="addManager" />
 </template>
 
@@ -17,15 +18,24 @@ export default {
         bank: "",
         edit: false,
       },
+      msgError: "",
     };
   },
   methods: {
     async addManager() {
-      await addDoc(collection(db, "managers"), {
-        name: this.manager.name,
-        bank: this.manager.bank,
-        edit: this.manager.edit,
-      });
+      if (this.manager.name && this.manager.bank) {
+        await addDoc(collection(db, "managers"), {
+          name: this.manager.name,
+          bank: this.manager.bank,
+          edit: this.manager.edit,
+        });
+      }
+      if (!this.manager.name) {
+        return (this.msgError = "Name required.");
+      }
+      if (!this.manager.bank) {
+        return (this.msgError = "Bank required.");
+      }
 
       this.manager.name = "";
       this.manager.bank = "";

@@ -1,17 +1,24 @@
 <template>
     <div id="app">
-      <router-link to="/addmanager">Add Manager</router-link>
-      <router-link to="/managers">Manager</router-link>
+      <NavBar />
+      
     <router-view/>
   </div>
 </template>
 
 <script>
+import NavBar from "./components/NavBar.vue"
 export default {
-
+  components:{
+    NavBar
+  }
 }
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+}
 
 </style>

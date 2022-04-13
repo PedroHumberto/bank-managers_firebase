@@ -8,10 +8,12 @@
         v-for="manager in filterManager"
         :key="manager.id"
       >
-        <p v-if="!manager.edit">Name: {{ manager.name }}</p>
+        <p>Name</p>
+        <p v-if="!manager.edit">{{ manager.name }}</p>
         <div v-else class="edit">
           <input v-model="manager.name" />
-          <button @click.prevent="save">Save</button>
+          <input v-model="manager.bank" />
+          <button @click.prevent="save(manager)">Save</button>
         </div>
         <p>Bank: {{ manager.bank }}</p>
         <button @click.prevent="remove(manager.id)">Delete</button>
@@ -22,7 +24,13 @@
 </template>
 
 <script>
-import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 export default {
@@ -52,6 +60,19 @@ export default {
     editManager(manager) {
       manager.edit = true;
     },
+    async save(manager) {
+      console.log(manager.id);
+      const managerList = doc(db, "managers", manager.id);
+      console.log(managerList);
+      
+      await updateDoc(managerList, {
+        name: manager.name,
+        bank: manager.bank
+        
+    });
+    return manager.edit = false
+      
+    },
   },
   computed: {
     filterManager(filter) {
@@ -72,7 +93,16 @@ p {
   text-align: center;
 }
 button {
-  margin: 5px 5px;
+  margin: 5px 42px;
+
+  
+  background: #480048;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  margin-left: 31px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
 }
 .container {
   display: flex;
@@ -88,13 +118,16 @@ button {
 .manager-card {
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
+  width: 255px;
   margin: 10px 10px;
-
   border: 1px solid plum;
   box-shadow: 5px 2px 5px 2px rgba(36, 2, 36, 0.432);
   border-radius: 15px;
 }
 .edit {
   margin: 5px 10px;
+  display: flex;
+  flex-direction: column;
 }
 </style>

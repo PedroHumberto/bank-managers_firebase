@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <p v-show="msgErro" style="color: red">{{ msgErro }}</p>
     <form @submit.prevent="register">
         <h1>Register</h1>
       <div class="email-pass">
+    <p v-show="msgError" style="color: red">{{ msgError }}</p>
         <label for="email">Email</label>
         <input class="in-email-pass" type="email" v-model="user.email" />
         <label for="password">Senha</label>
@@ -23,21 +23,26 @@ export default {
         email: "",
         password: "",
       },
-      msgErro: "",
+      msgError: "",
     };
   },
   methods: {
     register() {
-      this.$store.dispatch("NEW_USER_REGISTER", this.user);
+      if (this.user.email && this.user.password) {
+        return  this.$store.commit("NEW_USER_REGISTER", this.user);
+      }
+      if (!this.user.email) {
+        return this.msgError='Email required.';
+      }
+      if (!this.user.password) {
+        return this.msgError='Password required.';
+      }
+     
     },
   },
 };
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-*{
-  font-family: 'Montserrat', sans-serif;
-}
 h1{
     text-align: center;
 }

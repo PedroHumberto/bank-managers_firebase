@@ -64,10 +64,6 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-* {
-  font-family: "Montserrat", sans-serif;
-}
 h1 {
   text-align: center;
 }
@@ -78,7 +74,6 @@ p {
 form {
   display: flex;
   flex-direction: column;
-
   width: 100%;
   margin: 50px auto;
 }
