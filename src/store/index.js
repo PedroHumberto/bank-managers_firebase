@@ -6,24 +6,23 @@ import router from '../router'
 
 export default createStore({
   state: {
-    user: {},
+    user: '',
     manager: [],
     filter: ''
   },
   getters: {
+    //filtro por cada letra digitada retornando apenas os intens inclusos no array de managers.
     filterManager(state) {
       return state.manager.filter((manager) => manager.name.toLowerCase().includes(state.filter.toLowerCase()))
     }
   },
   mutations: {
+    //metodo usado para criar usuario no firebase conforme documentação de autenticação de usuario.
     NEW_USER_REGISTER(state, user) {
-      console.log(user)
       createUserWithEmailAndPassword(getAuth(), user.email, user.password)
         .then(() => {
           router.push({ name: 'managers' })
-          state.user.email = user.email
-          state.user.password = user.password
-          //Pegar estes dados e registrar no FireBase
+          state.user = user.email
         })
         .catch((error) => {
           const erro = error.code
@@ -33,6 +32,7 @@ export default createStore({
           }
         })
     },
+    //quando executa o metodo para preencher o banco de dados eu puxo para dentro do store, fazendo com que as mutações sejam capturadas.
     GET_MANAGERS(state, manager) {
       manager.map(item => item)
       state.manager = manager
@@ -43,7 +43,12 @@ export default createStore({
 
   },
   actions: {
-
+    /* quando tento usar a função asincrona para passar os dados dos managers pra state.manager
+       os dados não são carregados a tempo e renderizados em tela. Eu entendi o problema de sincronia
+       mas não entendi como posso solucionar esse problema. Então coloquei direto no componente.
+       Gostaria de uma dica para eu poder refatorar depois.
+       O metodo usado foi o passado pela documentação do firebase https://firebase.google.com/docs/firestore/quickstart?hl=pt&authuser=0
+    */
 
   },
   modules: {

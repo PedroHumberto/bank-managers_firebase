@@ -22,6 +22,7 @@ export default {
     };
   },
   methods: {
+    //metodo asincrono, cadastrar o manager no banco de dados, pegando o nome, e banco passado pelo usuario.
     async addManager() {
       if (this.manager.name && this.manager.bank) {
         await addDoc(collection(db, "managers"), {

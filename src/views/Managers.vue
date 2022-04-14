@@ -1,14 +1,13 @@
 <template>
   <div class="container">
     <h1>This is yours Bank Managers</h1>
-    <input @input="filter = $event.target.value" />
+    <input @input="filter = $event.target.value" placeholder="type a name" />
     <div class="managers">
       <div
         class="manager-card"
         v-for="manager in filterManager"
         :key="manager.id"
       >
-        <p>Name</p>
         <p v-if="!manager.edit">{{ manager.name }}</p>
         <div v-else class="edit">
           <input v-model="manager.name" />
@@ -48,22 +47,27 @@ export default {
       deleteDoc(doc(db, "managers", id));
       return this.setManagers();
     },
+    //importando o banco de dados para ser renderizado. Aqui tenho o problema de quando executo apenas o commit ou action ele não preenche o array. Recebendo o banco de dados como objeto vazio {}
+    //https://firebase.google.com/docs/firestore/quickstart?hl=pt&authuser=0
     async setManagers() {
       const querySnapshot = await getDocs(collection(db, "managers"));
       const loadManager = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
+      //console.log(loadManager)
       this.$store.commit("GET_MANAGERS", loadManager);
       this.managers = this.$store.state.manager;
     },
     editManager(manager) {
       manager.edit = true;
     },
+
+    //optei por fazer um update ao vivo, usando um metodo ensinado pela documentação. Devo usar ele em computed?
     async save(manager) {
-      console.log(manager.id);
+      //console.log(manager.id);
       const managerList = doc(db, "managers", manager.id);
-      console.log(managerList);
+      //console.log(managerList);
       
       await updateDoc(managerList, {
         name: manager.name,
@@ -75,8 +79,8 @@ export default {
     },
   },
   computed: {
-    filterManager(filter) {
-      this.$store.commit("FILTER", filter.filter);
+    filterManager(data) {
+      this.$store.commit("FILTER", data.filter);
       return this.$store.getters.filterManager;
     },
   },
@@ -114,6 +118,7 @@ button {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .manager-card {
   display: flex;

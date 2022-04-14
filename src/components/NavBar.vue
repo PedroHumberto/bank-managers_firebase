@@ -1,22 +1,15 @@
 <template>
   <div class="topnav">
-    <router-link :class="homeStyle" to="/">Home</router-link>
-    <router-link :class="managersStyle" to="/managers">Managers</router-link>
-    <router-link :class="addStyle" to="/addmanager">Add Manager</router-link>
+    <router-link to="/">Home</router-link>
+    <router-link to="/managers">Managers</router-link>
+    <router-link to="/addmanager">Add Manager</router-link>
   </div>
 </template>
 
 <script>
 
 export default {
-  data() {
-    return {
-      homeStyle: "",
-      addStyle: "",
-      managersStyle: "",
-      currentRoute: '',
-    };
-  },
+
 };
 </script>
 

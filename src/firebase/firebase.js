@@ -13,7 +13,10 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 
+//pegando o banco de dados
 const db = getFirestore(firebase);
 
+
+// estou exportando o banco de dados e a inicialização do firebase para poder puxar o banco dedados e poder usar o metodo de autenticação
 export { firebase, db }
 

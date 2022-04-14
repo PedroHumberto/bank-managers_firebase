@@ -5,13 +5,12 @@
       <h1>Login</h1>
       <div class="email-pass">
         <label for="email"> Email</label>
-        <input class="in-email-pass" type="email" v-model="email" />
+        <input class="input-email-pass" type="email" v-model="email" />
         <label for="password">Password</label>
-        <input class="in-email-pass" type="password" v-model="password" />
+        <input class="input-email-pass" type="password" v-model="password" />
       </div>
       <p v-if="errMsg" style="color: red">{{ errMsg }}</p>
       <button type="submit">Login</button>
-
       <p>
         You don't have an account?
         <router-link to="/register">Register Now!</router-link>
@@ -22,7 +21,6 @@
 
 <script>
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
 export default {
   data() {
     return {
@@ -38,7 +36,7 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then(() => {
           
-          console.log(auth.currentUser.metadata.lastSignInTime);//ultimo horario que fez login
+          //console.log(auth.currentUser.metadata.lastSignInTime); <--- ultimo horario que fez login, usar para algo no futuro.
           this.$router.push({ name: "managers" });
         })
         .catch((error) => {
@@ -105,7 +103,7 @@ label {
   margin: 20px;
   margin-top: 15px;
 }
-.in-email-pass {
+.input-email-pass {
   width: 100%;
   height: 36px;
 }
