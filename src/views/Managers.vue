@@ -59,6 +59,7 @@ export default {
       this.$store.commit("GET_MANAGERS", loadManager);
       this.managers = this.$store.state.manager;
     },
+    //usei um bollean para abrir um input permitindo a atualização da informação.
     editManager(manager) {
       manager.edit = true;
     },
@@ -96,10 +97,9 @@ p {
   margin: 10px 10px;
   text-align: center;
 }
-button {
-  margin: 5px 42px;
 
-  
+button {
+  margin: 5px 42px; 
   background: #480048;
   border: 1px solid #c4c4c4;
   border-radius: 10px;

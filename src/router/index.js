@@ -34,6 +34,7 @@ const router = createRouter({
   ]
 })
 
+
 //metodo para conferir se o usuario está logado e permanece logado
 const getCurrentUser = () => {
   return new Promise((resolve, reject) => {

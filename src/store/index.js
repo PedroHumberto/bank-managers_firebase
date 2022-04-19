@@ -26,9 +26,12 @@ export default createStore({
         })
         .catch((error) => {
           const erro = error.code
-          console.log(erro)
+          console.log(error.code)
           if (erro === 'auth/email-already-in-use') {
             alert("EMAIL ALREADY IN USE")
+          }
+          if (erro === 'auth/weak-password') {
+            alert("MIN 6 CHARACTERS")
           }
         })
     },

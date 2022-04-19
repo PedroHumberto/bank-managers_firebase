@@ -5,9 +5,9 @@
       <div class="email-pass">
     <p v-show="msgError" style="color: red">{{ msgError }}</p>
         <label for="email">Email</label>
-        <input class="in-email-pass" type="email" v-model="user.email" />
+        <input class="input-email-pass" type="email" v-model="user.email" />
         <label for="password">Senha</label>
-        <input class="in-email-pass" type="password" v-model="user.password" />
+        <input class="input-email-pass" type="password" v-model="user.password" minlength="6" />
       </div>
       <button type="submit">Cadastrar</button>
     </form>
@@ -81,16 +81,7 @@ input {
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
 }
-.in-nome {
-  width: 155px;
-  height: 36px;
-  margin-right: 45px;
-}
-.in-sobrenome {
-  width: 155px;
-  height: 36px;
-}
-.in-email-pass {
+.input-email-pass {
   width: 100%;
   height: 36px;
 }
